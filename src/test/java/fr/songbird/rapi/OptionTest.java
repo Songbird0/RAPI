@@ -17,13 +17,17 @@
 */
 package fr.songbird.rapi;
 
+import fr.songbird.rapi.option.None;
+import fr.songbird.rapi.option.Option;
+import fr.songbird.rapi.option.Some;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 /**
- * @author anthony
- * @version majeure.mineure.bug
  * @since 08/09/17
  */
 public class OptionTest {
@@ -33,12 +37,18 @@ public class OptionTest {
 
     @Test
     public void isSomeTest() {
-
+        final Option<Integer> option = new Some<>(117);
+        assertThat(option.isSome(), is(true));
+        final Option<Integer> option1 = new None();
+        assertThat(option1.isSome(), is(false));
     }
 
     @Test
     public void isNoneTest() {
-
+        final Option<Integer> option = new Some<>(117);
+        assertThat(option.isNone(), is(false));
+        final Option<Integer> option1 = new None();
+        assertThat(option1.isNone(), is(true));
     }
 
     @Test
