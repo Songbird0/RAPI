@@ -28,4 +28,9 @@ public class Some<T> implements Option<T> {
     public T expect(String customErrorMessage) {
         return value;
     }
+
+    @Override
+    public T unwrap() {
+        return value;
+    }
 }

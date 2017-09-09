@@ -26,4 +26,10 @@ public class None<T> implements Option<T> {
         Objects.requireNonNull(customErrorMessage, "customErrorMessage cannot be null.");
         throw new RuntimeException(customErrorMessage);
     }
+
+    @Override
+    public T unwrap() {
+        throw new RuntimeException("called `"
+                + Option.class.getName() + ".unwrap()` on a `None` object");
+    }
 }
