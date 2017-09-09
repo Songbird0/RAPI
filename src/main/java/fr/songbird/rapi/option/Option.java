@@ -16,4 +16,13 @@ public interface Option<T> {
     boolean isNone();
 
 
+    /**
+     * @param customErrorMessage Your custom error message.
+     * @return The contained value if the {@code Option} is {@code Some}. Throws
+     * a {@link RuntimeException} displaying your custom error message, otherwise.
+     * @exception RuntimeException If {@code Option} objet is {@code None}.
+     * @exception NullPointerException If {@code customErrorMessage} is null. No worry, this NPE
+     * is thrown with a relevant error message to help you.
+     */
+    T expect(String customErrorMessage);
 }
