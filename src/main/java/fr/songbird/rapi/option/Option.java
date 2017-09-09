@@ -32,4 +32,11 @@ public interface Option<T> {
      * another {@code Option} service to handle the {@code None} case.
      */
     T unwrap();
+
+    /**
+     * @param defaultValue The default value to return.
+     * @return The contained value if the {@code Option} is {@code Some}, the default value otherwise.
+     * @exception NullPointerException If {@code defaultValue} is null.
+     */
+    T unwrapOr(T defaultValue);
 }
