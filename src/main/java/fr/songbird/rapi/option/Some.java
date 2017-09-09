@@ -26,6 +26,7 @@ public class Some<T> implements Option<T> {
 
     @Override
     public T expect(String customErrorMessage) {
+        Objects.requireNonNull(customErrorMessage, "customErrorMessage cannot be null.");
         return value;
     }
 
