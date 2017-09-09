@@ -63,7 +63,13 @@ public class OptionTest {
 
     @Test
     public void unwrapTest() {
-
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("called `"
+                + Option.class.getName() + ".unwrap()` on a `None` object");
+        final Option<Integer> option = new Some<>(117);
+        assertThat(option.unwrap(), is(117));
+        final Option<Integer> option1 = new None<>();
+        option1.unwrap();
     }
 
     @Test
