@@ -53,7 +53,12 @@ public class OptionTest {
 
     @Test
     public void expectTest() {
-
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("OH NO!");
+        final Option<Integer> option = new Some<>(117);
+        assertThat(option.expect("OH NO!"), is(117));
+        final Option<Integer> option1 = new None<>();
+        option1.expect("OH NO!");
     }
 
     @Test
