@@ -25,4 +25,11 @@ public interface Option<T> {
      * is thrown with a relevant error message to help you.
      */
     T expect(String customErrorMessage);
+
+    /**
+     * @return The contained value if the {@code Option} is {@code Some}, throws
+     * a {@link RuntimeException} otherwise. Usually, this method shouldn't used. Prefer to use
+     * another {@code Option} service to handle the {@code None} case.
+     */
+    T unwrap();
 }
