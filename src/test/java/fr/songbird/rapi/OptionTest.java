@@ -74,7 +74,10 @@ public class OptionTest {
 
     @Test
     public void unwrapOrTest() {
-
+        final Option<Integer> option = new Some<>(117);
+        assertThat(option.unwrapOr(259), is(117));
+        final Option<Integer> option1 = new None<>();
+        assertThat(option1.unwrapOr(259), is(259));
     }
 
     @Test
