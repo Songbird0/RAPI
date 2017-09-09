@@ -33,4 +33,10 @@ public class Some<T> implements Option<T> {
     public T unwrap() {
         return value;
     }
+
+    @Override
+    public T unwrapOr(T defaultValue) {
+        Objects.requireNonNull(defaultValue, "defaultValue cannot be null.");
+        return value;
+    }
 }

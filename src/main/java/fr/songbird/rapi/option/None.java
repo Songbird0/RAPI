@@ -32,4 +32,10 @@ public class None<T> implements Option<T> {
         throw new RuntimeException("called `"
                 + Option.class.getName() + ".unwrap()` on a `None` object");
     }
+
+    @Override
+    public T unwrapOr(T defaultValue) {
+        Objects.requireNonNull(defaultValue, "defaultValue cannot be null.");
+        return defaultValue;
+    }
 }
