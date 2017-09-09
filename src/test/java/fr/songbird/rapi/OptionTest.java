@@ -39,7 +39,7 @@ public class OptionTest {
     public void isSomeTest() {
         final Option<Integer> option = new Some<>(117);
         assertThat(option.isSome(), is(true));
-        final Option<Integer> option1 = new None();
+        final Option<Integer> option1 = new None<>();
         assertThat(option1.isSome(), is(false));
     }
 
@@ -47,7 +47,7 @@ public class OptionTest {
     public void isNoneTest() {
         final Option<Integer> option = new Some<>(117);
         assertThat(option.isNone(), is(false));
-        final Option<Integer> option1 = new None();
+        final Option<Integer> option1 = new None<>();
         assertThat(option1.isNone(), is(true));
     }
 
