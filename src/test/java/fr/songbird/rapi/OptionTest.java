@@ -81,6 +81,15 @@ public class OptionTest {
     }
 
     @Test
+    public void unwrapOrElseTest() {
+        final Option<Integer> option = new Some<>(117);
+        final Integer defaultValue = 2;
+        assertThat(option.unwrapOrElse(() -> defaultValue * 2), is(117));
+        final Option<Integer> option1 = new None<>();
+        assertThat(option1.unwrapOrElse(() -> defaultValue * 2), is(4));
+    }
+
+    @Test
     public void mapTest() {
 
     }
