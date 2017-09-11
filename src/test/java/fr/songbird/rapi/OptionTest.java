@@ -91,7 +91,17 @@ public class OptionTest {
 
     @Test
     public void mapTest() {
-
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("called `"
+                + Option.class.getName() + ".unwrap()` on a `None` object");
+        final Option<String> soption = new Some<>("Hello there!");
+        final Option<Integer> ioption = soption.map(String::length);
+        assertThat(ioption instanceof Some, is(true));
+        assertThat(ioption.unwrap(), is(12));
+        final Option<String> soption1 = new None<>();
+        final Option<Integer> ioption1 = soption1.map(String::length);
+        assertThat(ioption1 instanceof None, is(true));
+        ioption1.unwrap();
     }
 
     @Test
