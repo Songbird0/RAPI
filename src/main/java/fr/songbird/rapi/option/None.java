@@ -15,6 +15,7 @@
 package fr.songbird.rapi.option;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -60,5 +61,11 @@ public class None<T> implements Option<T> {
         final T expressionResult = expression.get();
         Objects.requireNonNull(expressionResult, "The `expression` result cannot be null.");
         return expressionResult;
+    }
+
+    @Override
+    public <U> Option<U> map(Function<T, U> appliedFunction) {
+        Objects.requireNonNull(appliedFunction, "`appliedFunction` cannot be null.");
+        return new None<>();
     }
 }
