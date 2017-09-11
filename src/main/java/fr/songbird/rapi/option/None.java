@@ -15,6 +15,7 @@
 package fr.songbird.rapi.option;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * @since 09/09/17
@@ -51,5 +52,13 @@ public class None<T> implements Option<T> {
     public T unwrapOr(T defaultValue) {
         Objects.requireNonNull(defaultValue, "defaultValue cannot be null.");
         return defaultValue;
+    }
+
+    @Override
+    public T unwrapOrElse(Supplier<T> expression) {
+        Objects.requireNonNull(expression, "`expression` cannot be null");
+        final T expressionResult = expression.get();
+        Objects.requireNonNull(expressionResult, "The `expression` result cannot be null.");
+        return expressionResult;
     }
 }
