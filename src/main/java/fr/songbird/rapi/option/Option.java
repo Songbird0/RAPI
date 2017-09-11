@@ -14,6 +14,7 @@
 */
 package fr.songbird.rapi.option;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -64,4 +65,16 @@ public interface Option<T> {
      * @exception NullPointerException If the {@code expression} result is null.<br>
      */
     T unwrapOrElse(Supplier<T> expression);
+
+    /**
+     * Maps an {@code `Option<T>`} to {@code `Option<U>`} by applying a function to a contained value.
+     * <p><strong>Note</strong>: If {@code Option<T>} is {@code None},
+     * {@code map()} will return {@code None} ({@code Option<U>}).</p>
+     * @param appliedFunction Function to apply.
+     * @param <U> The {@code `Option`} returned type.
+     * @return A new {@code `Option`} type.
+     * @exception NullPointerException If {@code appliedFunction} is null.
+     * @exception NullPointerException If the {@code appliedFunction} result is null.
+     */
+    <U> Option<U> map(Function<T, U> appliedFunction);
 }
