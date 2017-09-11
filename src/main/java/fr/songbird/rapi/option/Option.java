@@ -14,6 +14,8 @@
 */
 package fr.songbird.rapi.option;
 
+import java.util.function.Supplier;
+
 /**
  * @since 09/09/17
  */
@@ -53,4 +55,13 @@ public interface Option<T> {
      * @exception NullPointerException If {@code defaultValue} is null.
      */
     T unwrapOr(T defaultValue);
+
+    /**
+     * Returns the contained value or computes the lambda {@code expression}.
+     * @param expression Lambda to compute.
+     * @return The contained value or the lambda result.
+     * @exception NullPointerException If {@code expression} is null.
+     * @exception NullPointerException If the {@code expression} result is null.<br>
+     */
+    T unwrapOrElse(Supplier<T> expression);
 }
