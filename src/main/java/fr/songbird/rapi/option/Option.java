@@ -77,4 +77,19 @@ public interface Option<T> {
      * @exception NullPointerException If the {@code appliedFunction} result is null.
      */
     <U> Option<U> map(Function<T, U> appliedFunction);
+
+    /**
+     * Applies a function to the contained value (if any), returns
+     * a default value otherwise.
+     * @param defaultValue The returned default value if there is no contained
+     *                     value.
+     * @param appliedFunction The function to apply to the contained value.
+     * @param <U> The default value type.
+     * @return The {@code appliedFunction} result if the contained value is present,
+     * {@code defaultValue} otherwise.
+     * @throws NullPointerException If {@code defaultValue} is null.
+     * @throws NullPointerException If {@code appliedFunction} is null.
+     * @throws NullPointerException If the {@code appliedFunction} result is null.
+     */
+    <U> U mapOr(U defaultValue, Function<T, U> appliedFunction);
 }
