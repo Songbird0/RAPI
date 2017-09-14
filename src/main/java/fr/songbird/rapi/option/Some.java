@@ -71,4 +71,13 @@ public class Some<T> implements Option<T> {
         Objects.requireNonNull(newValue, "`U` value cannot be null.");
         return new Some<>(newValue);
     }
+
+    @Override
+    public <U> U mapOr(U defaultValue, Function<T, U> appliedFunction) {
+        Objects.requireNonNull(defaultValue, "defaultValue cannot be null.");
+        Objects.requireNonNull(appliedFunction, "appliedFunction cannot be null.");
+        final U returnedValue = appliedFunction.apply(this.value);
+        Objects.requireNonNull(returnedValue, "returnedValue cannot be null.");
+        return returnedValue;
+    }
 }

@@ -68,4 +68,11 @@ public class None<T> implements Option<T> {
         Objects.requireNonNull(appliedFunction, "`appliedFunction` cannot be null.");
         return new None<>();
     }
+
+    @Override
+    public <U> U mapOr(U defaultValue, Function<T, U> appliedFunction) {
+        Objects.requireNonNull(defaultValue, "defaultValue cannot be null.");
+        Objects.requireNonNull(appliedFunction, "appliedFunction cannot be null.");
+        return defaultValue;
+    }
 }
