@@ -106,7 +106,12 @@ public class OptionTest {
 
     @Test
     public void mapOrTest() {
-
+        final Option<String> option = new Some<>("Java is awesome!");
+        final String containedValue = option.mapOr("I'm the default value!", yourString -> yourString + "\nI agree! :D");
+        assertThat(containedValue, is("Java is awesome!\nI agree! :D"));
+        final Option<String> option1 = new None<>();
+        final String returnedValue = option1.mapOr("I'm the default value!", yourString -> yourString + "\nI agree! :D");
+        assertThat(returnedValue, is("I'm the default value!"));
     }
 
     @Test
