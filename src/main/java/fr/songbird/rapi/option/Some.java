@@ -106,6 +106,12 @@ public class Some<T> implements Option<T> {
     }
 
     @Override
+    public Option<T> or(Option<T> option) {
+        Objects.requireNonNull(option, "option cannot be null.");
+        return this;
+    }
+
+    @Override
     public boolean equals(Option<T> option) {
         Objects.requireNonNull(option, "option cannot be null.");
         return option.isSome() && Objects.equals(this.value, ((Some) option).value);

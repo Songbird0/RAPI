@@ -99,6 +99,11 @@ public class None<T> implements Option<T> {
     }
 
     @Override
+    public Option<T> or(Option<T> option) {
+        return Objects.requireNonNull(option, "option cannot be null.");
+    }
+
+    @Override
     public boolean equals(Option<T> option) {
         Objects.requireNonNull(option, "option cannot be null.");
         return option.isNone();
