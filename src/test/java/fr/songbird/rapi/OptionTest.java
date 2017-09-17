@@ -138,11 +138,6 @@ public class OptionTest {
     }
 
     @Test
-    public void iterTest() {
-
-    }
-
-    @Test
     public void andTest() {
 
     }
