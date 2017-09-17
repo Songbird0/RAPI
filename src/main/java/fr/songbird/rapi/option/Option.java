@@ -141,4 +141,12 @@ public interface Option<T> {
      * @throws NullPointerException If {@code option} is null.
      */
     Option<T> or(Option<T> option);
+
+    /**
+     * @param function The function to apply.
+     * @return The option if it contains a value, calls {@code function} and returns the result otherwise.
+     * @throws NullPointerException If {@code function} is null.
+     * @throws NullPointerException If the {@code function} result is null.
+     */
+    Option<T> orElse(Supplier<Option<T>> function);
 }
