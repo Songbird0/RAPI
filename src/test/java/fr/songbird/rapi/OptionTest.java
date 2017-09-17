@@ -24,6 +24,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -116,7 +119,12 @@ public class OptionTest {
 
     @Test
     public void mapOrElse() {
-
+        final Option<String> s = new Some<>("Hello ");
+        final Supplier<String> defaultAction = () -> "is away!";
+        final Function<String, String> isSomeAction = string -> string + "world!";
+        assertThat(s.mapOrElse(defaultAction, isSomeAction), is("Hello world!"));
+        final Option<String> anotherString = new None<>();
+        assertThat(anotherString.mapOrElse(defaultAction, isSomeAction), is("is away!"));
     }
 
     @Test
