@@ -92,4 +92,10 @@ public class Some<T> implements Option<T> {
         Objects.requireNonNull(isSomeActionResult, "isSomeActionResult cannot be null.");
         return isSomeActionResult;
     }
+
+    @Override
+    public <U> Option<U> and(Option<U> opt) {
+        Objects.requireNonNull(opt, "opt cannot be null");
+        return opt;
+    }
 }

@@ -85,4 +85,10 @@ public class None<T> implements Option<T> {
         Objects.requireNonNull(defaultActionResult, "result cannot be null.");
         return defaultActionResult;
     }
+
+    @Override
+    public <U> Option<U> and(Option<U> opt) {
+        Objects.requireNonNull(opt, "opt cannot be null.");
+        return new None<>();
+    }
 }
