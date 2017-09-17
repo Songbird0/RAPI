@@ -103,9 +103,21 @@ public class None<T> implements Option<T> {
         return Objects.requireNonNull(option, "option cannot be null.");
     }
 
+    /**
+     * Compares the contained values only.
+     * <pre>{@code
+     * new Some<>("Hello").equals(new Some<>("Hello")); // true
+     * new Some<>("Hello").equals(new Some<>("World!")); // false
+     * }</pre>
+     * @param anObject The other option to compare.
+     * @return {@code true} if {@code option} is equal to the current object, {@code false} otherwise.
+     */
     @Override
-    public boolean equals(Option<T> option) {
-        Objects.requireNonNull(option, "option cannot be null.");
-        return option.isNone();
+    public boolean equals(Object anObject) {
+        if (anObject instanceof Option) {
+            final Option<T> option = (Option<T>) anObject;
+            return option.isNone();
+        }
+        return false;
     }
 }

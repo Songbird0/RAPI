@@ -111,9 +111,21 @@ public class Some<T> implements Option<T> {
         return this;
     }
 
+    /**
+     * Compares the contained values only.
+     * <pre>{@code
+     * new Some<>("Hello").equals(new Some<>("Hello")); // true
+     * new Some<>("Hello").equals(new Some<>("World!")); // false
+     * }</pre>
+     * @param anObject The other option to compare.
+     * @return {@code true} if {@code option} is equal to the current object, {@code false} otherwise.
+     */
     @Override
-    public boolean equals(Option<T> option) {
-        Objects.requireNonNull(option, "option cannot be null.");
-        return option.isSome() && Objects.equals(this.value, ((Some) option).value);
+    public boolean equals(Object anObject) {
+        if (anObject instanceof Option) {
+            final Option<T> option = (Option<T>) anObject;
+            return option.isSome() && Objects.equals(this.value, ((Some) option).value);
+        }
+        return false;
     }
 }
