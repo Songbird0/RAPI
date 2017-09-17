@@ -111,6 +111,12 @@ public class Some<T> implements Option<T> {
         return this;
     }
 
+    @Override
+    public Option<T> orElse(Supplier<Option<T>> function) {
+        Objects.requireNonNull(function, "function cannot be null.");
+        return this;
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code

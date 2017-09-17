@@ -103,6 +103,12 @@ public class None<T> implements Option<T> {
         return Objects.requireNonNull(option, "option cannot be null.");
     }
 
+    @Override
+    public Option<T> orElse(Supplier<Option<T>> function) {
+        Objects.requireNonNull(function, "function cannot be null.");
+        return function.get();
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code
