@@ -75,4 +75,14 @@ public class None<T> implements Option<T> {
         Objects.requireNonNull(appliedFunction, "appliedFunction cannot be null.");
         return defaultValue;
     }
+
+    @Override
+    public <U> U mapOrElse(Supplier<U> defaultAction, Function<T, U> isSomeAction) {
+        Objects.requireNonNull(defaultAction, "defaultAction cannot be null.");
+        Objects.requireNonNull(isSomeAction, "isSomeAction cannot be null.");
+
+        final U defaultActionResult = defaultAction.get();
+        Objects.requireNonNull(defaultActionResult, "result cannot be null.");
+        return defaultActionResult;
+    }
 }

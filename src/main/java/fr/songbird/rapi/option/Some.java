@@ -80,4 +80,16 @@ public class Some<T> implements Option<T> {
         Objects.requireNonNull(returnedValue, "returnedValue cannot be null.");
         return returnedValue;
     }
+
+    @Override
+    public <U> U mapOrElse(Supplier<U> defaultAction, Function<T, U> isSomeAction) {
+        Objects.requireNonNull(defaultAction, "defaultAction cannot be null.");
+        Objects.requireNonNull(isSomeAction, "isSomeAction cannot be null.");
+
+        final U defaultActionResult = defaultAction.get();
+        Objects.requireNonNull(defaultActionResult, "defaultActionResult cannot be null.");
+        final U isSomeActionResult = isSomeAction.apply(this.value);
+        Objects.requireNonNull(isSomeActionResult, "isSomeActionResult cannot be null.");
+        return isSomeActionResult;
+    }
 }
