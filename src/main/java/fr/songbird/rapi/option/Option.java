@@ -123,4 +123,15 @@ public interface Option<T> {
      * @throws NullPointerException If {@code opt} is null.
      */
     <U> Option<U> and(Option<U> opt);
+
+    /**
+     * Performs {@code function} over the contained value (if any) and returns the result.
+     * Returns {@code None} otherwise.
+     * @param function Function to apply.
+     * @param <U> The returned type.
+     * @return The {@code function} result if there's a contained value, {@code None} otherwise.
+     * @throws NullPointerException If {@code function} is null.
+     * @throws NullPointerException If the {@code function} result is null.
+     */
+    <U> Option<U> andThen(Function<T, Option<U>> function);
 }
