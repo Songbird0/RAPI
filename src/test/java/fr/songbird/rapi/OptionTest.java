@@ -139,7 +139,13 @@ public class OptionTest {
 
     @Test
     public void andTest() {
-
+        final String CONST = "There was a contained value!";
+        final Option<Integer> i = new None<>();
+        final Option<String> newOpt = i.and(new Some<>(CONST));
+        assertThat(newOpt instanceof None, is(true));
+        final Option<Integer> anotherInteger = new Some<>(99);
+        final Option<String> _newOpt = anotherInteger.and(new Some<>(CONST));
+        assertThat(_newOpt instanceof Some, is(true));
     }
 
     @Test
