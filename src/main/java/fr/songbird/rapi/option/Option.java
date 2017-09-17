@@ -136,6 +136,13 @@ public interface Option<T> {
     <U> Option<U> andThen(Function<T, Option<U>> function);
 
     /**
+     * @param option The default option.
+     * @return The current container if there's a contained value, {@code option} otherwise.
+     * @throws NullPointerException If {@code option} is null.
+     */
+    Option<T> or(Option<T> option);
+
+    /**
      * Compares the contained values only.
      * <pre>{@code
      * new Some<>("Hello").equals(new Some<>("Hello")); // true
