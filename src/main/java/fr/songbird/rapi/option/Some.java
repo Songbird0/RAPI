@@ -121,6 +121,7 @@ public class Some<T> implements Option<T> {
      * @return {@code true} if {@code option} is equal to the current object, {@code false} otherwise.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object anObject) {
         if (anObject instanceof Option) {
             final Option<T> option = (Option<T>) anObject;
