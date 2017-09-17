@@ -129,12 +129,12 @@ public class OptionTest {
 
     @Test
     public void okOrTest() {
-
+        // FIXME Result class not yet implemented.
     }
 
     @Test
     public void okOrElseTest() {
-
+        // FIXME Result class not yet implemented.
     }
 
     @Test
