@@ -91,4 +91,16 @@ public class None<T> implements Option<T> {
         Objects.requireNonNull(opt, "opt cannot be null.");
         return new None<>();
     }
+
+    @Override
+    public <U> Option<U> andThen(Function<T, Option<U>> function) {
+        Objects.requireNonNull(function, "function cannot be null.");
+        return new None<>();
+    }
+
+    @Override
+    public boolean equals(Option<T> option) {
+        Objects.requireNonNull(option, "option cannot be null.");
+        return option.isNone();
+    }
 }
