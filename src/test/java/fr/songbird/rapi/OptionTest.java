@@ -150,7 +150,14 @@ public class OptionTest {
 
     @Test
     public void andThenTest() {
+        final Function<Integer, Option<Integer>> square = integer -> new Some<>(integer * integer);
+        final Function<Integer, Option<Integer>> nope = integer -> new None<>();
 
+        assertThat(new Some<>(2).andThen(square).andThen(square).equals(new Some<>(16)), is(true));
+        assertThat(new Some<>(2).andThen(square).andThen(nope).equals(new None<>()), is(true));
+        assertThat(new Some<>(2).andThen(nope).andThen(square).equals(new None<>()), is(true));
+        assertThat(new None<Integer>().andThen(square).andThen(square).equals(new None<>()), is(true));
+        assertThat(new Some<>(2).andThen(square).andThen(integer -> new Some<>("New type!")).equals(new Some<>("New type!")), is(true));
     }
 
     @Test
