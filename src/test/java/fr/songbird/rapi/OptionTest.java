@@ -162,7 +162,17 @@ public class OptionTest {
 
     @Test
     public void orTest() {
+        final Option<String> a = new Some<>("a");
+        final Option<String> b = new None<>();
+        assertThat(a.or(b).equals(new Some<>("a")), is(true));
 
+        final Option<String> c = new Some<>("c");
+        final Option<String> d = new Some<>("d");
+        assertThat(c.or(d).equals(new Some<>("c")), is(true));
+
+        final Option<String> e = new None<>();
+        final Option<String> f = new Some<>("f");
+        assertThat(e.or(f).equals(new Some<>("f")), is(true));
     }
 
     @Test
