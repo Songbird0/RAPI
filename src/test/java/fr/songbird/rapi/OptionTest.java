@@ -178,7 +178,12 @@ public class OptionTest {
 
     @Test
     public void orElseTest() {
+        final Supplier<Option<String>> nobody = None::new;
+        final Supplier<Option<String>> leon = () -> new Some<>("Leon");
 
+        assertThat(new Some<>("August").orElse(leon), is(equalTo(new Some<>("August"))));
+        assertThat(new None<String>().orElse(leon), is(equalTo(new Some<>("Leon"))));
+        assertThat(new None<String>().orElse(nobody), is(equalTo(new None<String>())));
     }
 
     @Test
