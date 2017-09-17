@@ -141,15 +141,4 @@ public interface Option<T> {
      * @throws NullPointerException If {@code option} is null.
      */
     Option<T> or(Option<T> option);
-
-    /**
-     * Compares the contained values only.
-     * <pre>{@code
-     * new Some<>("Hello").equals(new Some<>("Hello")); // true
-     * new Some<>("Hello").equals(new Some<>("World!")); // false
-     * }</pre>
-     * @param option The other option to compare.
-     * @return {@code true} if {@code option} is equal to the current object, {@code false} otherwise.
-     */
-    boolean equals(Option<T> option);
 }

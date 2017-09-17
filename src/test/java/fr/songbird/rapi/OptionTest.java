@@ -29,6 +29,7 @@ import java.util.function.Supplier;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * @since 08/09/17
@@ -153,26 +154,26 @@ public class OptionTest {
         final Function<Integer, Option<Integer>> square = integer -> new Some<>(integer * integer);
         final Function<Integer, Option<Integer>> nope = integer -> new None<>();
 
-        assertThat(new Some<>(2).andThen(square).andThen(square).equals(new Some<>(16)), is(true));
-        assertThat(new Some<>(2).andThen(square).andThen(nope).equals(new None<>()), is(true));
-        assertThat(new Some<>(2).andThen(nope).andThen(square).equals(new None<>()), is(true));
-        assertThat(new None<Integer>().andThen(square).andThen(square).equals(new None<>()), is(true));
-        assertThat(new Some<>(2).andThen(square).andThen(integer -> new Some<>("New type!")).equals(new Some<>("New type!")), is(true));
+        assertThat(new Some<>(2).andThen(square).andThen(square), is(equalTo(new Some<>(16))));
+        assertThat(new Some<>(2).andThen(square).andThen(nope), is(equalTo(new None<>())));
+        assertThat(new Some<>(2).andThen(nope).andThen(square), is(equalTo(new None<>())));
+        assertThat(new None<Integer>().andThen(square).andThen(square), is(equalTo(new None<>())));
+        assertThat(new Some<>(2).andThen(square).andThen(integer -> new Some<>("New type!")), is(equalTo(new Some<>("New type!"))));
     }
 
     @Test
     public void orTest() {
         final Option<String> a = new Some<>("a");
         final Option<String> b = new None<>();
-        assertThat(a.or(b).equals(new Some<>("a")), is(true));
+        assertThat(a.or(b), is(equalTo(new Some<>("a"))));
 
         final Option<String> c = new Some<>("c");
         final Option<String> d = new Some<>("d");
-        assertThat(c.or(d).equals(new Some<>("c")), is(true));
+        assertThat(c.or(d), is(equalTo(new Some<>("c"))));
 
         final Option<String> e = new None<>();
         final Option<String> f = new Some<>("f");
-        assertThat(e.or(f).equals(new Some<>("f")), is(true));
+        assertThat(e.or(f), is(equalTo(new Some<>("f"))));
     }
 
     @Test
