@@ -92,4 +92,26 @@ public interface Option<T> {
      * @throws NullPointerException If the {@code appliedFunction} result is null.
      */
     <U> U mapOr(U defaultValue, Function<T, U> appliedFunction);
+
+    /**
+     * Applies a function to the contained value (if any) or runs a default
+     * function otherwise. Example:
+     * <pre>{@code
+     * final Option<String> s = new Some<>("Hello ");
+     * final Supplier<String> defaultAction = () -> "is away!";
+     * final Function<String, String> isSomeAction = string -> string + "world!";
+     * assertThat(s.mapOrElse(defaultAction, isSomeAction), is("Hello world!"));
+     * final Option<String> anotherString = new None<>();
+     * assertThat(anotherString.mapOrElse(defaultAction, isSomeAction), is("is away!"));
+     * }</pre>
+     * @param defaultAction The default function.
+     * @param isSomeAction The applied function if there's a contained value.
+     * @param <U> The returned type.
+     * @return The functions result.
+     * @throws NullPointerException If either {@code defaultAction} or {@code isSomeAction}
+     * is null.
+     * @throws NullPointerException If either {@code defaultAction} or {@code isSomeAction} result
+     * is null.
+     */
+    <U> U mapOrElse(Supplier<U> defaultAction, Function<T, U> isSomeAction);
 }
