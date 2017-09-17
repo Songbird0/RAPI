@@ -114,4 +114,13 @@ public interface Option<T> {
      * is null.
      */
     <U> U mapOrElse(Supplier<U> defaultAction, Function<T, U> isSomeAction);
+
+    /**
+     * Returns {@code opt} if there's a contained value, {@code None} otherwise.
+     * @param opt The optional container to return if there's a contained value.
+     * @param <U> The returned value.
+     * @return {@code opt} if there's a contained value, {@code None} otherwise.
+     * @throws NullPointerException If {@code opt} is null.
+     */
+    <U> Option<U> and(Option<U> opt);
 }
