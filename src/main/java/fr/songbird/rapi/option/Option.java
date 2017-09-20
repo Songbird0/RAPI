@@ -14,6 +14,8 @@
 */
 package fr.songbird.rapi.option;
 
+import fr.songbird.rapi.ref.ReferenceHandler;
+
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -149,4 +151,13 @@ public interface Option<T> {
      * @throws NullPointerException If the {@code function} result is null.
      */
     Option<T> orElse(Supplier<Option<T>> function);
+
+    /**
+     * Inserts {@code value} into the option if it's {@link None}, then returns a reference to the contained
+     * value.
+     * @param option The option to convert to {@code Some}.
+     * @param value The value to insert into {@code option}.
+     * @return The inserted value in {@code option}.
+     */
+    T getOrInsert(ReferenceHandler<Option<T>> option, T value);
 }
