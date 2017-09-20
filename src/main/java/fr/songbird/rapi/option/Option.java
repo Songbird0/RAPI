@@ -156,6 +156,14 @@ public interface Option<T> {
      * Inserts {@code value} into the option if it's {@link None}, then returns a reference to the contained
      * value.
      * @param option The option to convert to {@code Some}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final Option<Integer> x = new None<>();
+     * x.getOrInsert(x, 8); // ok
+     * final Option<Integer> y = new None<>();
+     * x.getOrInsert(y, 8); // Makes no sense
+     *               }
+     *               </pre>
      * @param value The value to insert into {@code option}.
      * @return The inserted value in {@code option}.
      */
@@ -165,6 +173,14 @@ public interface Option<T> {
      * Inserts a value computed from {@code function} into the option if it's {@link None} then returns a reference to
      * the contained value.
      * @param option The option to convert to {@code Some}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final Option<Integer> x = new None<>();
+     * x.getOrInsert(x, 8); // ok
+     * final Option<Integer> y = new None<>();
+     * x.getOrInsert(y, 8); // Makes no sense
+     *               }
+     *               </pre>
      * @param function The function from which we get the computed value.
      * @return The new contained value if container is {@link None}, the current contained value otherwise.
      */
