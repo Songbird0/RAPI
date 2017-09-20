@@ -158,9 +158,9 @@ public interface Option<T> {
      * @param option The option to convert to {@code Some}.
      *               <strong>This parameter should be the current container object.</strong>
      *               <pre>{@code
-     * final Option<Integer> x = new None<>();
+     * final ReferenceHandler<Option<Integer>> x = new ReferenceHandler<>(new None<>());
      * x.getOrInsert(x, 8); // ok
-     * final Option<Integer> y = new None<>();
+     * final ReferenceHandler<Option<Integer>> y = new ReferenceHandler<>(new None<>());
      * x.getOrInsert(y, 8); // Makes no sense
      *               }
      *               </pre>
@@ -175,14 +175,29 @@ public interface Option<T> {
      * @param option The option to convert to {@code Some}.
      *               <strong>This parameter should be the current container object.</strong>
      *               <pre>{@code
-     * final Option<Integer> x = new None<>();
-     * x.getOrInsert(x, 8); // ok
-     * final Option<Integer> y = new None<>();
-     * x.getOrInsert(y, 8); // Makes no sense
+     * final ReferenceHandler<Option<Integer>> x = new ReferenceHandler<>(new None<>());
+     * x.getOrInsertWith(x, () -> 8); // ok
+     * final ReferenceHandler<Option<Integer>> y = new ReferenceHandler<>(new None<>());
+     * x.getOrInsertWith(y, () -> 8); // Makes no sense
      *               }
      *               </pre>
      * @param function The function from which we get the computed value.
      * @return The new contained value if container is {@link None}, the current contained value otherwise.
      */
     T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function);
+
+    /**
+     * Takes the value out of the option, leaving a {@link None} in its place.
+     * @param option The option to convert to {@link None}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final ReferenceHandler<Option<Integer>> x = new ReferenceHandler<>(new None<>());
+     * x.take(x); // ok
+     * final ReferenceHandler<Option<Integer>> y = new ReferenceHandler<>(new None<>());
+     * x.take(y); // Makes no sense
+     *               }
+     *               </pre>
+     * @return {@link Some} object if there was a contained value, otherwise {@link None}.
+     */
+    Option<T> take(ReferenceHandler<Option<T>> option);
 }
