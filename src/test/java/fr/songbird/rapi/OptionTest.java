@@ -205,7 +205,13 @@ public class OptionTest {
 
     @Test
     public void takeTest() {
-
+        final ReferenceHandler<Option<Integer>> integer = new ReferenceHandler<>(new Some<>(117));
+        final Option<Integer> anotherInteger = integer.get().take(integer);
+        assertThat(integer.get(), is(equalTo(new None<>())));
+        assertThat(anotherInteger, is(equalTo(new Some<>(117))));
+        final ReferenceHandler<Option<Integer>> x = new ReferenceHandler<>(new None<>());
+        assertThat(x.get().take(x), is(equalTo(new None<>())));
+        assertThat(x.get(), is(equalTo(new None<>())));
     }
 
     @Test
