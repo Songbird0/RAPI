@@ -27,9 +27,29 @@ public class Some<T> implements Option<T> {
 
     private final T value;
 
+    /**
+     * Initializes a new {@code Some} container.
+     * @param value The value to wrap.
+     * @throws NullPointerException If {@code value} is null.
+     */
     public Some(T value) {
         Objects.requireNonNull(value, "value cannot be null.");
         this.value = value;
+    }
+
+    /**
+     * Copies another {@link Option}.
+     * @param option The option to copy.
+     * @throws IllegalArgumentException If {@code option} isn't {@link Some}.
+     */
+    public Some(Option<T> option) {
+        if (option.isSome()) {
+            final Some<T> nonEmptyContainer = (Some<T>)option;
+            this.value = nonEmptyContainer.value;
+        }
+        else {
+            throw new IllegalArgumentException("`option` is none. It does not contain value to copy.");
+        }
     }
 
     @Override
