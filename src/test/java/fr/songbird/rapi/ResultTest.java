@@ -22,8 +22,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * @author anthony
- * @version majeure.mineure.bug
  * @since 08/09/17
  */
 public class ResultTest {
