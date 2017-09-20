@@ -225,4 +225,24 @@ public class OptionTest {
         final Option<String> bar = new None<>();
         final Option<String> barBrother = new Some<>(bar); // error
     }
+
+    @Test
+    public void useCase1() {
+        Integer foo = new Some<>(42)
+                .map(x -> x * 2)
+                .or(new Some<>(68))
+                .map(x -> x + 10)
+                .unwrap();
+        assertThat(foo, is(equalTo(94)));
+    }
+
+    @Test
+    public void useCase2() {
+        Integer foo = new None<Integer>()
+                .map(x -> x * 2)
+                .or(new Some<>(68))
+                .map(x -> x + 10)
+                .unwrap();
+        assertThat(foo, is(equalTo(78)));
+    }
 }
