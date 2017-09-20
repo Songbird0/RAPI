@@ -197,7 +197,10 @@ public class OptionTest {
 
     @Test
     public void getOrInsertWithTest() {
-
+        final ReferenceHandler<Option<String>> noneOption = new ReferenceHandler<>(new None<>());
+        final String foo = noneOption.get().getOrInsertWith(noneOption, () -> "foo");
+        assertThat(foo, is(equalTo("foo")));
+        assertThat(noneOption.get().getClass(), is(equalTo(Some.class)));
     }
 
     @Test
