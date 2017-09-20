@@ -129,6 +129,12 @@ public class None<T> implements Option<T> {
         return functionResult;
     }
 
+    @Override
+    public Option<T> take(ReferenceHandler<Option<T>> option) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        return this; // `option` should be `this`, so we return `this` immediately.
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code

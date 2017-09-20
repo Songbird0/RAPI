@@ -134,6 +134,14 @@ public class Some<T> implements Option<T> {
         return this.value;
     }
 
+    @Override
+    public Option<T> take(ReferenceHandler<Option<T>> option) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        final T containedValue = option.get().unwrap();
+        option.set(new None<>());
+        return new Some<>(containedValue);
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code
