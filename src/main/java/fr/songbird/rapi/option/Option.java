@@ -160,4 +160,13 @@ public interface Option<T> {
      * @return The inserted value in {@code option}.
      */
     T getOrInsert(ReferenceHandler<Option<T>> option, T value);
+
+    /**
+     * Inserts a value computed from {@code function} into the option if it's {@link None} then returns a reference to
+     * the contained value.
+     * @param option The option to convert to {@code Some}.
+     * @param function The function from which we get the computed value.
+     * @return The new contained value if container is {@link None}, the current contained value otherwise.
+     */
+    T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function);
 }
