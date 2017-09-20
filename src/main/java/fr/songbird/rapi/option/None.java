@@ -14,6 +14,8 @@
 */
 package fr.songbird.rapi.option;
 
+import fr.songbird.rapi.ref.ReferenceHandler;
+
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -107,6 +109,14 @@ public class None<T> implements Option<T> {
     public Option<T> orElse(Supplier<Option<T>> function) {
         Objects.requireNonNull(function, "function cannot be null.");
         return function.get();
+    }
+
+    @Override
+    public T getOrInsert(ReferenceHandler<Option<T>> option, T value) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(value, "`value` cannot be null.");
+        option.set(new Some<>(value));
+        return value;
     }
 
     /**
