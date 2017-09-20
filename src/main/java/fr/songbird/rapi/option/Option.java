@@ -51,6 +51,32 @@ import java.util.function.Supplier;
  *     greetings("Hi"); // prints "Hi, everybody!"
  * }
  * }</pre>
+ * <pre>{@code
+ * public SuperAPIObject foo() {
+ *     if(...) {
+ *         return new SuperAPIObject();
+ *     } else { return null; } // bad!
+ * }
+ *
+ * public Option<SuperAPIObject> foo() {
+ *     if(...) {
+ *         return new Some<>(new SuperAPIObject());
+ *     } else { return new None<>(); } // good!
+ * }
+ *
+ * public static void main(String... args) {
+ *     final SuperAPIObject sao = foo(); // imperative approach
+ *     if (foo == null) {
+ *         ...
+ *     }
+ *     // functional approach
+ *     // You should read like this:
+ *     final SuperAPIObject bar = foo().map(superAPIObject -> ...) // perform an action on `superAPIObject` then return it
+ *     .or(new Some<>(new SuperAPIObject(...)) // if `superAPIObject` is absent, create a new superAPIObject
+ *     .map(superAPIObject -> ...) // perform an action on the new object
+ *     .unwrap(); // unwrap it.
+ * }
+ * }</pre>
  * @since 09/09/17
  */
 public interface Option<T> {
