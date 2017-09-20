@@ -20,6 +20,37 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
+ * Represents an optional non-null pointer.
+ * <p>
+ * {@link Option} is kind of "improvement" of {@link java.util.Optional} standard class allowing more complex method chaining. You can find some examples below:
+ * <pre>{@code
+ * // No null pointer
+ * // Let's admit you want to overload your method to greet all of your friends or a particular one.
+ * // Your method `greetings` takes two parameters: `message` and `firstName` to greet a particular friend.
+ * // Will we set `firstName` to null to greet all of our friends? Of course not!
+ * // We'll use an `Option` container to signal the presence of `firstName`.
+ * public void greetings(String message, Option<String> firstName) {
+ *     System.out.print(message + ", ");
+ *     if (firstName.isSome()) { // if you choose to greet a particular friend
+ *         System.out.println(firstName.unwrap() + "!");
+ *     }
+ *     else {
+ *         System.out.println("everybody!");
+ *     }
+ * }
+ *
+ * public void greetings(String message) {
+ *     // then...
+ *     greetings(message, new None<>()); // We want to greet all friends so
+ *     // we set `firstName` to None!
+ * }
+ *
+ * public static void main(String... args) {
+ *     final String firstName = "Anthony";
+ *     greetings("Hi", firstName); // prints "Hi, Anthony!"
+ *     greetings("Hi"); // prints "Hi, everybody!"
+ * }
+ * }</pre>
  * @since 09/09/17
  */
 public interface Option<T> {
