@@ -39,6 +39,15 @@ public class Some<T> implements Option<T> {
 
     /**
      * Copies another {@link Option}.
+     * <p>
+     * <strong>Note</strong>: This constructor performs a shallow copy, you should copy your resource beforehand.
+     * <pre>{@code
+     * final Option<String> foo = new Some<>("foo");
+     * final Option<String> fooBrother = new Some<>(foo);
+     * assertThat(foo != fooBrother, is(true));
+     * assertThat(foo, is(equalTo(fooBrother)));
+     * assertThat(foo.unwrap() == fooBrother.unwrap(), is(true)); // same object
+     * }</pre>
      * @param option The option to copy.
      * @throws IllegalArgumentException If {@code option} isn't {@link Some}.
      */
