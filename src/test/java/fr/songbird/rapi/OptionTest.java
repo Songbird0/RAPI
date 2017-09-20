@@ -20,6 +20,7 @@ package fr.songbird.rapi;
 import fr.songbird.rapi.option.None;
 import fr.songbird.rapi.option.Option;
 import fr.songbird.rapi.option.Some;
+import fr.songbird.rapi.ref.ReferenceHandler;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -188,7 +189,10 @@ public class OptionTest {
 
     @Test
     public void getOrInsertTest() {
-
+        ReferenceHandler<Option<String>> noneOption = new ReferenceHandler<>(new None<>());
+        final String foo = noneOption.get().getOrInsert(noneOption, "foo");
+        assertThat(foo, is(equalTo("foo")));
+        assertThat(noneOption.get().getClass(), is(equalTo(Some.class)));
     }
 
     @Test
