@@ -29,7 +29,7 @@ public class ReferenceHandler<T> {
      * @throws NullPointerException If {@code value} is null.
      */
     public ReferenceHandler(T value) {
-        this.value = value;
+        this.value = Objects.requireNonNull(value, "`value` cannot be null.");
     }
 
     /**
