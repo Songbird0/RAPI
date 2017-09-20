@@ -216,6 +216,13 @@ public class OptionTest {
 
     @Test
     public void cloneTest() {
-
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("`option` is none. It does not contain value to copy.");
+        final Option<String> foo = new Some<>("foo");
+        final Option<String> fooBrother = new Some<>(foo);
+        assertThat(foo != fooBrother, is(true));
+        assertThat(foo, is(equalTo(fooBrother)));
+        final Option<String> bar = new None<>();
+        final Option<String> barBrother = new Some<>(bar); // error
     }
 }
