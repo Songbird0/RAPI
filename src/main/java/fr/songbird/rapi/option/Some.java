@@ -126,6 +126,14 @@ public class Some<T> implements Option<T> {
         return value;
     }
 
+    @Override
+    public T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(function, "`function` cannot be null.");
+        Objects.requireNonNull(function.get(), "`function` result cannot be null.");
+        return this.value;
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code

@@ -119,6 +119,16 @@ public class None<T> implements Option<T> {
         return value;
     }
 
+    @Override
+    public T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(function, "`function` cannot be null.");
+        final T functionResult = function.get();
+        Objects.requireNonNull(functionResult, "`function` result cannot be null.");
+        option.set(new Some<>(functionResult));
+        return functionResult;
+    }
+
     /**
      * Compares the contained values only.
      * <pre>{@code
