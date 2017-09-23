@@ -46,7 +46,10 @@ public class ResultTest {
 
     @Test
     public void isErrTest() {
-
+        final Result<String, String> result = new Err<>("OH NO!");
+        assertThat(result.isErr(), is(true));
+        final Result<String, String> anotherResult = new Ok<>("It's ok!");
+        assertThat(anotherResult.isErr(), is(not(true)));
     }
 
     @Test

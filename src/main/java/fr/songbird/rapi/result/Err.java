@@ -17,4 +17,9 @@ public class Err<T, E> implements Result<T, E> {
     public boolean isOk() {
         return false;
     }
+
+    @Override
+    public boolean isErr() {
+        return true;
+    }
 }

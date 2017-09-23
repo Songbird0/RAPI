@@ -17,4 +17,9 @@ public class Ok<T, E> implements Result<T, E> {
     public boolean isOk() {
         return true;
     }
+
+    @Override
+    public boolean isErr() {
+        return false;
+    }
 }

@@ -12,4 +12,12 @@ public interface Result<T, E> {
      * {@code false} otherwise.
      */
     boolean isOk();
+
+    /**
+     * Returns {@code true} if the result is an {@code Err} object,
+     * {@code false} otherwise.
+     * @return {@code true} if the result is an {@code Err} object,
+     * {@code false} otherwise.
+     */
+    boolean isErr();
 }
