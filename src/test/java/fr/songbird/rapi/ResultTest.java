@@ -17,9 +17,16 @@
 */
 package fr.songbird.rapi;
 
+import fr.songbird.rapi.result.Err;
+import fr.songbird.rapi.result.Ok;
+import fr.songbird.rapi.result.Result;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * @since 08/09/17
@@ -31,7 +38,10 @@ public class ResultTest {
 
     @Test
     public void isOkTest() {
-
+        final Result<String, String> result = new Ok<>("It's ok!");
+        assertThat(result.isOk(), is(true));
+        final Result<String, String> anotherResult = new Err<>("OH NO!");
+        assertThat(anotherResult.isOk(), is(not(true)));
     }
 
     @Test
