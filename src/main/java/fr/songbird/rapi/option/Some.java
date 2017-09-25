@@ -153,7 +153,7 @@ public class Some<T> implements Option<T> {
     public T getOrInsert(ReferenceHandler<Option<T>> option, T value) {
         Objects.requireNonNull(option, "`option` cannot be null.");
         Objects.requireNonNull(value, "`value` cannot be null.");
-        return value;
+        return this.value;
     }
 
     @Override
