@@ -17,6 +17,7 @@ package fr.songbird.rapi.option;
 import fr.songbird.rapi.ref.ReferenceHandler;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -156,6 +157,13 @@ public class Some<T> implements Option<T> {
     }
 
     @Override
+    public T getOrInsert(AtomicReference<Option<T>> option, T value) {
+        Objects.requireNonNull(option, "`option` cannot be null");
+        Objects.requireNonNull(value, "`value` cannot be null.");
+        return this.value;
+    }
+
+    @Override
     public T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function) {
         Objects.requireNonNull(option, "`option` cannot be null.");
         Objects.requireNonNull(function, "`function` cannot be null.");
@@ -164,7 +172,23 @@ public class Some<T> implements Option<T> {
     }
 
     @Override
+    public T getOrInsertWith(AtomicReference<Option<T>> option, Supplier<T> function) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(function, "`function` cannot be null.");
+        Objects.requireNonNull(function.get(), "`function` result cannot be null.");
+        return this.value;
+    }
+
+    @Override
     public Option<T> take(ReferenceHandler<Option<T>> option) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        final T containedValue = option.get().unwrap();
+        option.set(new None<>());
+        return new Some<>(containedValue);
+    }
+
+    @Override
+    public Option<T> take(AtomicReference<Option<T>> option) {
         Objects.requireNonNull(option, "`option` cannot be null.");
         final T containedValue = option.get().unwrap();
         option.set(new None<>());
