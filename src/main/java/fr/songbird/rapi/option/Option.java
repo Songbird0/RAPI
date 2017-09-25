@@ -16,6 +16,7 @@ package fr.songbird.rapi.option;
 
 import fr.songbird.rapi.ref.ReferenceHandler;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -227,6 +228,23 @@ public interface Option<T> {
     T getOrInsert(ReferenceHandler<Option<T>> option, T value);
 
     /**
+     * Inserts {@code value} into the option if it's {@link None}, then returns a reference to the contained
+     * value.
+     * @param option The option to convert to {@code Some}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final AtomicReference<Option<Integer>> x = new AtomicReference<>(new None<>());
+     * x.getOrInsert(x, 8); // ok
+     * final AtomicReference<Option<Integer>> y = new AtomicReference<>(new None<>());
+     * x.getOrInsert(y, 8); // Makes no sense
+     *               }
+     *               </pre>
+     * @param value The value to insert into {@code option}.
+     * @return The inserted value in {@code option}.
+     */
+    T getOrInsert(AtomicReference<Option<T>> option, T value);
+
+    /**
      * Inserts a value computed from {@code function} into the option if it's {@link None} then returns a reference to
      * the contained value.
      * @param option The option to convert to {@code Some}.
@@ -244,6 +262,23 @@ public interface Option<T> {
     T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function);
 
     /**
+     * Inserts a value computed from {@code function} into the option if it's {@link None} then returns a reference to
+     * the contained value.
+     * @param option The option to convert to {@code Some}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final AtomicReference<Option<Integer>> x = new AtomicReference<>(new None<>());
+     * x.getOrInsertWith(x, () -> 8); // ok
+     * final AtomicReference<Option<Integer>> y = new AtomicReference<>(new None<>());
+     * x.getOrInsertWith(y, () -> 8); // Makes no sense
+     *               }
+     *               </pre>
+     * @param function The function from which we get the computed value.
+     * @return The new contained value if container is {@link None}, the current contained value otherwise.
+     */
+    T getOrInsertWith(AtomicReference<Option<T>> option, Supplier<T> function);
+
+    /**
      * Takes the value out of the option, leaving a {@link None} in its place.
      * @param option The option to convert to {@link None}.
      *               <strong>This parameter should be the current container object.</strong>
@@ -257,4 +292,19 @@ public interface Option<T> {
      * @return {@link Some} object if there was a contained value, otherwise {@link None}.
      */
     Option<T> take(ReferenceHandler<Option<T>> option);
+
+    /**
+     * Takes the value out of the option, leaving a {@link None} in its place.
+     * @param option The option to convert to {@link None}.
+     *               <strong>This parameter should be the current container object.</strong>
+     *               <pre>{@code
+     * final AtomicReference<Option<Integer>> x = new AtomicReference<>(new None<>());
+     * x.take(x); // ok
+     * final AtomicReference<Option<Integer>> y = new AtomicReference<>(new None<>());
+     * x.take(y); // Makes no sense
+     *               }
+     *               </pre>
+     * @return {@link Some} object if there was a contained value, otherwise {@link None}.
+     */
+    Option<T> take(AtomicReference<Option<T>> option);
 }

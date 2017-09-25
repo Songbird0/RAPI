@@ -17,6 +17,7 @@ package fr.songbird.rapi.option;
 import fr.songbird.rapi.ref.ReferenceHandler;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -120,6 +121,14 @@ public class None<T> implements Option<T> {
     }
 
     @Override
+    public T getOrInsert(AtomicReference<Option<T>> option, T value) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(value, "`value` cannot be null.");
+        option.set(new Some<>(value));
+        return value;
+    }
+
+    @Override
     public T getOrInsertWith(ReferenceHandler<Option<T>> option, Supplier<T> function) {
         Objects.requireNonNull(option, "`option` cannot be null.");
         Objects.requireNonNull(function, "`function` cannot be null.");
@@ -130,7 +139,23 @@ public class None<T> implements Option<T> {
     }
 
     @Override
+    public T getOrInsertWith(AtomicReference<Option<T>> option, Supplier<T> function) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        Objects.requireNonNull(function, "`function` cannot be null.");
+        final T functionResult = function.get();
+        Objects.requireNonNull(functionResult, "`function` result cannot be null.");
+        option.set(new Some<>(functionResult));
+        return functionResult;
+    }
+
+    @Override
     public Option<T> take(ReferenceHandler<Option<T>> option) {
+        Objects.requireNonNull(option, "`option` cannot be null.");
+        return this; // `option` should be `this`, so we return `this` immediately.
+    }
+
+    @Override
+    public Option<T> take(AtomicReference<Option<T>> option) {
         Objects.requireNonNull(option, "`option` cannot be null.");
         return this; // `option` should be `this`, so we return `this` immediately.
     }
